@@ -1,0 +1,19 @@
+CREATE TABLE users (
+    id BIGSERIAL PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    role VARCHAR(20) NOT NULL DEFAULT 'ROLE_USER',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE short_urls (
+    id BIGSERIAL PRIMARY KEY,
+    short_key VARCHAR(10) NOT NULL UNIQUE,
+    original_url TEXT NOT NULL,
+    is_private BOOLEAN NOT NULL DEFAULT FALSE,
+    expires_at TIMESTAMPTZ NULL,
+    created_by BIGINT REFERENCES users(id) ON DELETE SET NULL,
+    click_count BIGINT NOT NULL DEFAULT 0,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
