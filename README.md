@@ -1,0 +1,2 @@
+# Linkly
+Spring Boot Application
